@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logoLight from "../../../logo-light.svg";
 import logoDark from "../../../logo-dark.svg";
-import { useContext } from "react";
 import { ThemeContext } from "../../../context/ThemeController/ThemeController";
+
 const Header = () => {
    const { dark, setDarkTheme } = useContext(ThemeContext);
    return (
-      <div>
-         <div className="bg-base-300 w-[100vw] flex justify-between items-center container py-3 px-20">
+      <div className="sticky top-0 w-[100%] z-20 bg-base-300">
+         <div className="  mx-auto flex justify-between items-center container py-3 px-20">
             <div>
                <Link to="/">
                   <img src={dark ? logoDark : logoLight} alt="logo" className="w-[170px]" />

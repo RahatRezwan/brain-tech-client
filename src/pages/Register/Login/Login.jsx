@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaGoogle, FaGithub } from "react-icons/fa";
+import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
 
 const Login = () => {
+   /* state for show and hide password */
+   const [showPass, setShowPass] = useState(false);
    const handleSubmit = (event) => {
       event.preventDefault();
       const form = event.target;
@@ -30,16 +32,26 @@ const Login = () => {
                         className="input input-bordered focus:border-none focus:outline-primary"
                      />
                   </div>
-                  <div className="form-control">
+                  <div className="form-control relative">
                      <label className="label">
                         <span className="label-text">Password</span>
                      </label>
                      <input
-                        type="password"
+                        type={showPass ? "text" : "password"}
                         name="password"
                         placeholder="password"
                         className="input input-bordered focus:border-none focus:outline-primary"
                      />
+                     <div
+                        onClick={() => setShowPass(!showPass)}
+                        className="absolute right-5 bottom-[35%] cursor-pointer"
+                     >
+                        {showPass ? (
+                           <FaEyeSlash className="h-5 w-5" />
+                        ) : (
+                           <FaEye className="h-5 w-5" />
+                        )}
+                     </div>
                      <Link className="link link-hover text-end text-base text-error">
                         Forgot password?
                      </Link>
