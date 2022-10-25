@@ -2,27 +2,42 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import logoLight from "../../../logo-light.svg";
 import logoDark from "../../../logo-dark.svg";
+import { useContext } from "react";
+import { ThemeContext } from "../../../context/ThemeController/ThemeController";
 const Header = () => {
+   const { dark, setDarkTheme } = useContext(ThemeContext);
    return (
       <div>
          <div className="bg-base-300 w-[100vw] flex justify-between items-center container py-3 px-20">
             <div>
                <Link to="/">
-                  <img src={logoDark} alt="" />
+                  <img src={dark ? logoDark : logoLight} alt="logo" className="w-[170px]" />
                </Link>
             </div>
             <div>
                <ul className="flex justify-center items-center gap-10">
-                  <NavLink className="hover:text-primary font-semibold text-base" to="/">
+                  <NavLink
+                     className="hover:text-primary hover:border-b-2 hover:border-b-primary font-semibold text-base"
+                     to="/"
+                  >
                      Home
                   </NavLink>
-                  <NavLink className="hover:text-primary font-semibold text-base" to="/courses">
+                  <NavLink
+                     className="hover:text-primary hover:border-b-2 hover:border-b-primary font-semibold text-base"
+                     to="/courses"
+                  >
                      Courses
                   </NavLink>
-                  <NavLink className="hover:text-primary font-semibold text-base" to="/blogs">
+                  <NavLink
+                     className="hover:text-primary hover:border-b-2 hover:border-b-primary font-semibold text-base"
+                     to="/blogs"
+                  >
                      Blogs
                   </NavLink>
-                  <NavLink className="hover:text-primary font-semibold text-base" to="/faq">
+                  <NavLink
+                     className="hover:text-primary hover:border-b-2 hover:border-b-primary font-semibold text-base"
+                     to="/faq"
+                  >
                      FAQ
                   </NavLink>
                </ul>
@@ -31,7 +46,7 @@ const Header = () => {
                {/* Dark Mode/Light mode toggler */}
                <div>
                   <label className="swap swap-rotate">
-                     <input type="checkbox" />
+                     <input type="checkbox" onClick={() => setDarkTheme(!dark)} />
                      <svg
                         className="swap-on fill-current w-7 h-7"
                         xmlns="http://www.w3.org/2000/svg"
@@ -55,6 +70,7 @@ const Header = () => {
                </div>
                <button className="btn btn-outline btn-primary">Logout</button>
                <button className="btn btn-outline btn-primary">Login</button>
+               <button className="btn btn-primary hover:btn-outline">Register</button>
             </div>
          </div>
       </div>
