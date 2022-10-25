@@ -3,15 +3,17 @@ import { Link, NavLink } from "react-router-dom";
 import logoLight from "../../../logo-light.svg";
 import logoDark from "../../../logo-dark.svg";
 import { ThemeContext } from "../../../context/ThemeController/ThemeController";
+import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
 
 const Header = () => {
    const { dark, setDarkTheme } = useContext(ThemeContext);
+   const { user } = useContext(AuthContext);
    return (
       <div className="sticky top-0 w-[100%] z-20 bg-base-300">
          <div className="  mx-auto flex justify-between items-center container py-3 px-20">
             <div>
                <Link to="/">
-                  <img src={dark ? logoDark : logoLight} alt="logo" className="w-[170px]" />
+                  <img src={dark ? logoDark : logoLight} alt="logo" className="w-[160px]" />
                </Link>
             </div>
             <div>
@@ -63,17 +65,23 @@ const Header = () => {
                      </svg>
                   </label>
                </div>
-               <div className="avatar tooltip tooltip-bottom cursor-pointer" data-tip="User Name">
+               <div className="avatar tooltip tooltip-bottom cursor-pointer" data-tip={user}>
                   <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                      <img src="https://placeimg.com/192/192/people" alt="profile" />
                   </div>
                </div>
-               <button className="btn btn-outline btn-primary">Logout</button>
+               <button className="btn btn-outline btn-primary text-[13px] font-bold rounded-md">
+                  Logout
+               </button>
                <Link to="/login">
-                  <button className="btn btn-outline btn-primary">Login</button>
+                  <button className="btn btn-outline btn-primary text-[13px] font-bold rounded-md">
+                     Login
+                  </button>
                </Link>
                <Link to="/signup">
-                  <button className="btn btn-primary hover:btn-outline">Register</button>
+                  <button className="btn btn-primary hover:btn-outline text-[13px] font-bold rounded-md">
+                     Register
+                  </button>
                </Link>
             </div>
          </div>

@@ -2,10 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaGoogle, FaGithub, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
 
 const SignUp = () => {
    /* state for show and hide password */
    const [showPass, setShowPass] = useState(false);
+   const { createAUser } = useContext(AuthContext);
+
+   /* Handle form submit */
    const handleSubmit = (event) => {
       event.preventDefault();
       const form = event.target;
@@ -15,6 +20,14 @@ const SignUp = () => {
       const password = form.password.value;
       const confirm = form.confirm.value;
       console.log(fullName, photoURL, email, password, confirm);
+
+      /* Create A User */
+      createAUser(email, password)
+         .then((result) => {
+            const user = result.user;
+            console.log(user);
+         })
+         .catch((error) => console.log(error));
    };
    return (
       <div className="hero min-h-screen bg-base-200">
