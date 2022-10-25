@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../layouts/Main/Main";
 import PageWithSidebar from "../../layouts/PageWithSideBar/PageWithSidebar";
-import { Blog, Blogs, CourseDetails, Courses, Home, Login, SignUp } from "../../pages";
+import { Blog, Blogs, CourseDetails, Courses, FAQ, Home, Login, SignUp } from "../../pages";
 
 export const router = createBrowserRouter([
    {
@@ -23,6 +23,10 @@ export const router = createBrowserRouter([
          {
             path: "/signup",
             element: <SignUp />,
+         },
+         {
+            path: "/faq",
+            element: <FAQ />,
          },
       ],
    },
