@@ -65,24 +65,34 @@ const Header = () => {
                      </svg>
                   </label>
                </div>
-               <div className="avatar tooltip tooltip-bottom cursor-pointer" data-tip={user}>
-                  <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                     <img src="https://placeimg.com/192/192/people" alt="profile" />
-                  </div>
-               </div>
-               <button className="btn btn-outline btn-primary text-[13px] font-bold rounded-md">
-                  Logout
-               </button>
-               <Link to="/login">
-                  <button className="btn btn-outline btn-primary text-[13px] font-bold rounded-md">
-                     Login
-                  </button>
-               </Link>
-               <Link to="/signup">
-                  <button className="btn btn-primary hover:btn-outline text-[13px] font-bold rounded-md">
-                     Register
-                  </button>
-               </Link>
+               {user?.uid ? (
+                  <>
+                     <div
+                        className="avatar tooltip tooltip-bottom cursor-pointer"
+                        data-tip={user?.displayName ? user.displayName : "A user"}
+                     >
+                        <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                           <img src="https://placeimg.com/192/192/people" alt="profile" />
+                        </div>
+                     </div>
+                     <button className="btn btn-outline btn-primary text-[13px] font-bold rounded-md">
+                        Logout
+                     </button>
+                  </>
+               ) : (
+                  <>
+                     <Link to="/login">
+                        <button className="btn btn-outline btn-primary text-[13px] font-bold rounded-md">
+                           Login
+                        </button>
+                     </Link>
+                     <Link to="/signup">
+                        <button className="btn btn-primary hover:btn-outline text-[13px] font-bold rounded-md">
+                           Register
+                        </button>
+                     </Link>
+                  </>
+               )}
             </div>
          </div>
       </div>
