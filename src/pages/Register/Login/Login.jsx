@@ -3,11 +3,18 @@ import { Link } from "react-router-dom";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 
 const Login = () => {
+   const handleSubmit = (event) => {
+      event.preventDefault();
+      const form = event.target;
+      const email = form.email.value;
+      const password = form.password.value;
+      console.log(email, password);
+   };
    return (
       <div className="hero min-h-screen bg-base-200">
          <div className="hero-content flex-col w-11/12 md:w-3/5 lg:max-w-lg">
             <div className="card w-full shadow-2xl bg-base-100">
-               <form className="card-body">
+               <form onSubmit={handleSubmit} className="card-body">
                   <div className="text-center">
                      <h1 className="text-3xl font-bold">LOGIN</h1>
                   </div>
