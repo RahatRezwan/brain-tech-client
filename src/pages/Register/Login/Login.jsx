@@ -50,10 +50,7 @@ const Login = () => {
 
                   <p className="text-center my-2">
                      New to this website?{" "}
-                     <Link
-                        to="/register"
-                        className="link link-hover text-end text-base text-primary"
-                     >
+                     <Link to="/signup" className="link link-hover text-end text-base text-primary">
                         Register
                      </Link>
                   </p>

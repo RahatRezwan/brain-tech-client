@@ -63,7 +63,7 @@ const Header = () => {
                      </svg>
                   </label>
                </div>
-               <div className="avatar">
+               <div className="avatar tooltip tooltip-bottom cursor-pointer" data-tip="User Name">
                   <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                      <img src="https://placeimg.com/192/192/people" alt="profile" />
                   </div>
