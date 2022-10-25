@@ -4,10 +4,19 @@ import logoLight from "../../../logo-light.svg";
 import logoDark from "../../../logo-dark.svg";
 import { ThemeContext } from "../../../context/ThemeController/ThemeController";
 import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
+import userPic from "../../../assets/userPic.png";
 
 const Header = () => {
    const { dark, setDarkTheme } = useContext(ThemeContext);
-   const { user } = useContext(AuthContext);
+   const { user, logOutUser } = useContext(AuthContext);
+
+   /* handle Logout */
+   const handleLogOut = () => {
+      logOutUser()
+         .then(() => {})
+         .catch((error) => console.log(error));
+   };
+
    return (
       <div className="sticky top-0 w-[100%] z-20 bg-base-300">
          <div className="  mx-auto flex justify-between items-center container py-3 px-20">
@@ -72,10 +81,13 @@ const Header = () => {
                         data-tip={user?.displayName ? user.displayName : "A user"}
                      >
                         <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                           <img src="https://placeimg.com/192/192/people" alt="profile" />
+                           <img src={user?.photoURL ? user.photoURL : userPic} alt="profile" />
                         </div>
                      </div>
-                     <button className="btn btn-outline btn-primary text-[13px] font-bold rounded-md">
+                     <button
+                        onClick={handleLogOut}
+                        className="btn btn-outline btn-primary text-[13px] font-bold rounded-md"
+                     >
                         Logout
                      </button>
                   </>

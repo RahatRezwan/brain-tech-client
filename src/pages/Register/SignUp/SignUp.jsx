@@ -19,6 +19,9 @@ const SignUp = () => {
       const email = form.email.value;
       const password = form.password.value;
       const confirm = form.confirm.value;
+      if (password === confirm) {
+         return;
+      }
       console.log(fullName, photoURL, email, password, confirm);
 
       /* Create A User */
