@@ -1,16 +1,31 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
 
 const Login = () => {
    /* state for show and hide password */
    const [showPass, setShowPass] = useState(false);
+   const [error, setError] = useState(null);
+   const { loginAUser } = useContext(AuthContext);
+
    const handleSubmit = (event) => {
+      setError(null);
       event.preventDefault();
       const form = event.target;
       const email = form.email.value;
       const password = form.password.value;
       console.log(email, password);
+
+      /* User login */
+      loginAUser(email, password)
+         .then((result) => {
+            const user = result.user;
+            console.log(user);
+            form.reset();
+         })
+         .catch((error) => setError(error.code.slice(5)));
    };
    return (
       <div className="hero min-h-screen bg-base-200">
@@ -32,6 +47,9 @@ const Login = () => {
                         className="input input-bordered focus:border-none focus:outline-primary"
                      />
                   </div>
+                  {(error?.includes("email") || error?.includes("user")) && (
+                     <p className="text-red-500 font-bold">{error}</p>
+                  )}
                   <div className="form-control relative">
                      <label className="label">
                         <span className="label-text">Password</span>
@@ -44,7 +62,7 @@ const Login = () => {
                      />
                      <div
                         onClick={() => setShowPass(!showPass)}
-                        className="absolute right-5 bottom-[35%] cursor-pointer"
+                        className="absolute right-5 bottom-[16%] cursor-pointer"
                      >
                         {showPass ? (
                            <FaEyeSlash className="h-5 w-5" />
@@ -52,10 +70,11 @@ const Login = () => {
                            <FaEye className="h-5 w-5" />
                         )}
                      </div>
-                     <Link className="link link-hover text-end text-base text-error">
-                        Forgot password?
-                     </Link>
                   </div>
+                  {error?.includes("email") || error?.includes("user") || (
+                     <p className="text-red-500 font-bold">{error}</p>
+                  )}
+
                   <div className="form-control mt-2">
                      <button className="btn btn-outline hover:btn-primary">Login</button>
                   </div>
@@ -66,6 +85,9 @@ const Login = () => {
                         Register
                      </Link>
                   </p>
+                  <Link className="link link-hover text-center text-base text-error">
+                     Forgot password?
+                  </Link>
 
                   <div className="divider">OR</div>
                   <div className="text-center">

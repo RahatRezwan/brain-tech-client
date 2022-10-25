@@ -8,29 +8,38 @@ import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
 const SignUp = () => {
    /* state for show and hide password */
    const [showPass, setShowPass] = useState(false);
+   const [error, setError] = useState(null);
    const { createAUser } = useContext(AuthContext);
-
    /* Handle form submit */
    const handleSubmit = (event) => {
       event.preventDefault();
+      setError(null);
       const form = event.target;
       const fullName = form.name.value;
       const photoURL = form.photoURL.value;
       const email = form.email.value;
       const password = form.password.value;
       const confirm = form.confirm.value;
-      if (password === confirm) {
-         return;
-      }
       console.log(fullName, photoURL, email, password, confirm);
 
+      if (password !== confirm) {
+         setError("Your Password Didn't Match");
+         return;
+      }
+      if (password.length < 8) {
+         setError("Password should have at least 8 characters");
+         return;
+      }
       /* Create A User */
       createAUser(email, password)
          .then((result) => {
             const user = result.user;
+
             console.log(user);
          })
-         .catch((error) => console.log(error));
+         .catch((error) => {
+            setError(error.code.slice(5));
+         });
    };
    return (
       <div className="hero min-h-screen bg-base-200">
@@ -116,6 +125,7 @@ const SignUp = () => {
                         )}
                      </div>
                   </div>
+                  <strong className="text-red-500 text-center">{error}</strong>
                   <div className="form-control mt-5">
                      <button className="btn btn-outline hover:btn-primary">Sign Up</button>
                   </div>
