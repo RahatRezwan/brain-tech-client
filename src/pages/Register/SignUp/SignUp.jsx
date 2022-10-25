@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle, FaGithub, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { useContext } from "react";
@@ -9,7 +9,11 @@ const SignUp = () => {
    /* state for show and hide password */
    const [showPass, setShowPass] = useState(false);
    const [error, setError] = useState(null);
-   const { createAUser } = useContext(AuthContext);
+   const { createAUser, updateUserProfile, logOutUser } = useContext(AuthContext);
+
+   /* navigate to a route */
+   const navigate = useNavigate();
+
    /* Handle form submit */
    const handleSubmit = (event) => {
       event.preventDefault();
@@ -30,17 +34,30 @@ const SignUp = () => {
          setError("Password should have at least 8 characters");
          return;
       }
+
       /* Create A User */
       createAUser(email, password)
          .then((result) => {
             const user = result.user;
-
             console.log(user);
+            form.reset();
+            handleUpdateUser(fullName, photoURL);
+            logOutUser();
+            navigate("/login");
          })
          .catch((error) => {
             setError(error.code.slice(5));
          });
    };
+
+   /* Update User Profile */
+   const handleUpdateUser = (name, photoURL) => {
+      const profile = { displayName: name, photoURL: photoURL };
+      updateUserProfile(profile)
+         .then(() => {})
+         .catch((e) => console.log(e));
+   };
+
    return (
       <div className="hero min-h-screen bg-base-200">
          <div className="hero-content flex-col w-11/12 md:w-3/5 lg:max-w-lg">
@@ -59,6 +76,7 @@ const SignUp = () => {
                         name="name"
                         placeholder="Full name"
                         className="input input-bordered focus:border-none focus:outline-primary"
+                        required
                      />
                   </div>
                   <div className="form-control">
@@ -81,6 +99,7 @@ const SignUp = () => {
                         name="email"
                         placeholder="email"
                         className="input input-bordered focus:border-none focus:outline-primary"
+                        required
                      />
                   </div>
                   <div className="form-control relative">
@@ -92,6 +111,7 @@ const SignUp = () => {
                         name="password"
                         placeholder="password"
                         className="input input-bordered focus:border-none focus:outline-primary"
+                        required
                      />
                      <div
                         onClick={() => setShowPass(!showPass)}
@@ -113,6 +133,7 @@ const SignUp = () => {
                         name="confirm"
                         placeholder="Confirm password"
                         className="input input-bordered focus:border-none focus:outline-primary"
+                        required
                      />
                      <div
                         onClick={() => setShowPass(!showPass)}

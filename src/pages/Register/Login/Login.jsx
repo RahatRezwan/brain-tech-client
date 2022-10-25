@@ -45,6 +45,7 @@ const Login = () => {
                         name="email"
                         placeholder="email"
                         className="input input-bordered focus:border-none focus:outline-primary"
+                        required
                      />
                   </div>
                   {(error?.includes("email") || error?.includes("user")) && (
@@ -59,6 +60,7 @@ const Login = () => {
                         name="password"
                         placeholder="password"
                         className="input input-bordered focus:border-none focus:outline-primary"
+                        required
                      />
                      <div
                         onClick={() => setShowPass(!showPass)}
