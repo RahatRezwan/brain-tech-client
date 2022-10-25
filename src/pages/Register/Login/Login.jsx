@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
-
+import { toast } from "react-toastify";
 const Login = () => {
    /* state for show and hide password */
    const [showPass, setShowPass] = useState(false);
@@ -25,7 +25,10 @@ const Login = () => {
             console.log(user);
             form.reset();
          })
-         .catch((error) => setError(error.code.slice(5)));
+         .catch((error) => {
+            setError(error.code.slice(5));
+            toast.error(error.code.slice(5));
+         });
    };
    return (
       <div className="hero min-h-screen bg-base-200">

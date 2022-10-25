@@ -4,7 +4,7 @@ import { FaGoogle, FaGithub, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
-
+import { toast } from "react-toastify";
 const SignUp = () => {
    /* state for show and hide password */
    const [showPass, setShowPass] = useState(false);
@@ -43,10 +43,14 @@ const SignUp = () => {
             form.reset();
             handleUpdateUser(fullName, photoURL);
             logOutUser();
+            toast.success(
+               "Your Account Created Successfully! Now you can log in to your account!!"
+            );
             navigate("/login");
          })
          .catch((error) => {
             setError(error.code.slice(5));
+            toast.error(error.code.slice(5));
          });
    };
 
