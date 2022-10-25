@@ -69,8 +69,12 @@ const Header = () => {
                   </div>
                </div>
                <button className="btn btn-outline btn-primary">Logout</button>
-               <button className="btn btn-outline btn-primary">Login</button>
-               <button className="btn btn-primary hover:btn-outline">Register</button>
+               <Link to="/login">
+                  <button className="btn btn-outline btn-primary">Login</button>
+               </Link>
+               <Link to="/signup">
+                  <button className="btn btn-primary hover:btn-outline">Register</button>
+               </Link>
             </div>
          </div>
       </div>
