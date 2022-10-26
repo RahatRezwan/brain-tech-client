@@ -1,29 +1,44 @@
-import React, { useContext } from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../../../context/ThemeController/ThemeController";
-
-const Category = ({ category_id }) => {
+import CategoryItems from "../CategoryItems/CategoryItems";
+import { FaAngleUp, FaAngleDown } from "react-icons/fa";
+const Category = ({ category, index }) => {
    const { dark } = useContext(ThemeContext);
+   const { category_id, category_name } = category;
+   const [show, setShow] = useState(false);
+
    const [courses, setCourses] = useState([]);
    useEffect(() => {
       fetch(`http://localhost:5000/courses/${category_id}`)
          .then((res) => res.json())
          .then((data) => setCourses(data));
    }, [category_id]);
+
+   const handleSetShow = (id) => {
+      if (id === category_id) {
+         setShow(!show);
+      }
+   };
+
    return (
-      <>
-         {courses.map((course) => (
-            <div
-               className={`${
-                  dark ? "border-gray-600" : "border-gray-200"
-               } bg-base-100 shadow-md border p-1 flex items-center justify-start gap-2 w-full mb-2 rounded cursor-pointer hover:text-primary`}
-            >
-               <img src={course.img} alt="" className="w-[20%] rounded-sm" />
-               <p className="text-sm font-bold w-[80%]">{course.name}</p>
-            </div>
-         ))}
-      </>
+      <div
+         onClick={() => handleSetShow(category_id)}
+         tabIndex={index}
+         className={`${
+            dark ? "border-gray-600" : "border-gray-200"
+         } collapse border bg-base-100 rounded w-full text-start`}
+      >
+         <div className="collapse-title text-xl font-medium flex justify-between items-center px-5 ">
+            {category_name} {show ? <FaAngleUp /> : <FaAngleDown />}
+         </div>
+
+         <div className={`${show ? "block" : "hidden"} mx-2 transition ease-in-out delay-75`}>
+            {courses.map((course) => (
+               <CategoryItems key={course.id} course={course} />
+            ))}
+         </div>
+      </div>
    );
 };
 
