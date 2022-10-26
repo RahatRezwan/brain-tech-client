@@ -6,7 +6,11 @@ const Card = ({ course }) => {
    const { name, tagline, img } = course;
    const { dark } = useContext(ThemeContext);
    return (
-      <div className={`${dark ? "bg-base-300" : "bg-base-100"} shadow-lg rounded-md`}>
+      <div
+         className={`${
+            dark ? "bg-base-300 border-gray-600" : "bg-base-100 border-gray-200"
+         } shadow-lg rounded-md border `}
+      >
          <div className="p-3 pb-0">
             <img src={img} alt="" className=" rounded-md" />
          </div>
