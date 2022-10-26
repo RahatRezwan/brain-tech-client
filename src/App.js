@@ -3,7 +3,7 @@ import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import { ThemeContext } from "./context/ThemeController/ThemeController";
 import { router } from "./routes/Routes/Routes";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const CloseButton = ({ closeToast }) => (

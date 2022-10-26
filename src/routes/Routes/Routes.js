@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../layouts/Main/Main";
-import PageWithSidebar from "../../layouts/PageWithSideBar/PageWithSidebar";
 import { Blog, Blogs, CourseDetails, Courses, FAQ, Home, Login, SignUp } from "../../pages";
 
 export const router = createBrowserRouter([
@@ -28,15 +27,10 @@ export const router = createBrowserRouter([
             path: "/faq",
             element: <FAQ />,
          },
-      ],
-   },
-   {
-      path: "/",
-      element: <PageWithSidebar />,
-      children: [
          {
             path: "/courses",
             element: <Courses />,
+            loader: async () => fetch("http://localhost:5000/courses"),
          },
          {
             path: "/course/:courseId",
