@@ -14,10 +14,14 @@ const Hero = () => {
       <div className="min-h-screen flex gap-9 flex-col lg:flex-row justify-center items-center lg:text-start ml-4 lg:mx-32 md:my-5 lg:my-0">
          <div className="w-[100%] lg:w-[60%] lg:pl-24">
             <div className="text-center lg:text-start">
-               <h1 className="text-3xl lg:text-6xl font-extrabold">Hello, {user?.displayName}</h1>
-               <h1 className="text-3xl lg:text-6xl font-extrabold">Welcome to</h1>
-               <h1 className="text-3xl lg:text-6xl font-extrabold">Brain Tech Education</h1>
-               <button className="btn btn-outline btn-primary mt-5">Get Started</button>
+               <h1 className="text-3xl lg:text-6xl font-extrabold mb-5">
+                  Hello, {user?.displayName}
+               </h1>
+               <h1 className="text-3xl lg:text-6xl font-extrabold mb-5">Welcome to</h1>
+               <h1 className="text-3xl lg:text-6xl font-extrabold mb-5">Brain Tech Education</h1>
+               <Link to="/courses">
+                  <button className="btn btn-outline btn-primary">Get Started</button>
+               </Link>
             </div>
          </div>
          <div className="w-[100%] lg:w-[40%]">
@@ -34,7 +38,7 @@ const Hero = () => {
             >
                {heroImg.map((img, i) => (
                   <SwiperSlide key={i} className="flex justify-center w-[50vw] text-center">
-                     <img src={img} alt="" className="w-[50%]" />
+                     <img src={img} alt="" className="w-[60%] lg:w-[100%]" />
                   </SwiperSlide>
                ))}
             </Swiper>
