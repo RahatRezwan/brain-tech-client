@@ -11,46 +11,56 @@ import "swiper/css/navigation";
 const Hero = () => {
    const { user } = useContext(AuthContext);
    return (
-      <div>
-         <div className="hero min-h-screen min-w-[100%] bg-base-100">
-            <div className="hero-content flex flex-col lg:flex-row justify-between items-center m-auto">
-               <div className="w-[100%] lg:w-[50%]">
-                  <h1 className="text-5xl font-bold mb-2">
-                     {user?.uid ? <> Hello, {user?.displayName.toUpperCase()} </> : null}
-                  </h1>
-                  <h1 className="text-5xl font-bold mb-2">Welcome to</h1>
-                  <h1 className="text-5xl font-bold mb-2">Brain Tech Education</h1>
-                  <p className="py-6">
-                     We will provide some high quality courses. Please check out our courses. We
-                     have courses in more than 4 different categories. Check out all.
-                  </p>
-                  <Link to="/courses">
-                     <button className="btn btn-primary">Get Started</button>
-                  </Link>
-               </div>
-               <div className="w-[100%] lg:w-[50%]">
-                  <Swiper
-                     spaceBetween={10}
-                     slidesPerView={1}
-                     loop={true}
-                     autoplay={{
-                        delay: 1500,
-                        disableOnInteraction: false,
-                     }}
-                     modules={[Autoplay, Pagination]}
-                     className="mySwiper"
-                  >
-                     {heroImg.map((img, i) => (
-                        <SwiperSlide key={i} className="flex justify-center">
-                           <img src={img} alt="" />
-                        </SwiperSlide>
-                     ))}
-                  </Swiper>
-               </div>
+      <div className="min-h-screen flex gap-9 flex-col lg:flex-row justify-center items-center lg:text-start ml-4 lg:mx-32 md:my-5 lg:my-0">
+         <div className="w-[100%] lg:w-[60%] lg:pl-24">
+            <div className="text-center lg:text-start">
+               <h1 className="text-3xl lg:text-6xl font-extrabold">Hello, {user?.displayName}</h1>
+               <h1 className="text-3xl lg:text-6xl font-extrabold">Welcome to</h1>
+               <h1 className="text-3xl lg:text-6xl font-extrabold">Brain Tech Education</h1>
+               <button className="btn btn-outline btn-primary mt-5">Get Started</button>
             </div>
+         </div>
+         <div className="w-[100%] lg:w-[40%]">
+            <Swiper
+               spaceBetween={10}
+               slidesPerView={1}
+               loop={true}
+               autoplay={{
+                  delay: 1500,
+                  disableOnInteraction: false,
+               }}
+               modules={[Autoplay, Pagination]}
+               className="mySwiper"
+            >
+               {heroImg.map((img, i) => (
+                  <SwiperSlide key={i} className="flex justify-center w-[50vw] text-center">
+                     <img src={img} alt="" className="w-[50%]" />
+                  </SwiperSlide>
+               ))}
+            </Swiper>
          </div>
       </div>
    );
 };
 
 export default Hero;
+
+/* 
+<Swiper
+                  spaceBetween={10}
+                  slidesPerView={1}
+                  loop={true}
+                  autoplay={{
+                     delay: 1500,
+                     disableOnInteraction: false,
+                  }}
+                  modules={[Autoplay, Pagination]}
+                  className="mySwiper"
+               >
+                  {heroImg.map((img, i) => (
+                     <SwiperSlide key={i} className="flex justify-start lg:justify-center w-[50vw]">
+                        <img src={img} alt="" className="w-[50%]" />
+                     </SwiperSlide>
+                  ))}
+               </Swiper>
+*/
