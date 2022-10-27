@@ -10,10 +10,13 @@ const TopBar = () => {
       return <Loading />;
    }
 
+   const email = user?.email;
+   console.log("email: ", email);
+
    return (
       <div
          className={`${
-            user?.emailVerified || !user ? "hidden" : "block"
+            user?.emailVerified || !email || !user ? "hidden" : "block"
          } bg-warning text-white font-bold text-center p-2 text-md`}
       >
          Your email is not verified. Please check your inbox or spam folder and verify.
