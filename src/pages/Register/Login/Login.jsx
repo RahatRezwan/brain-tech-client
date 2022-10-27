@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
@@ -8,7 +8,10 @@ const Login = () => {
    /* state for show and hide password */
    const [showPass, setShowPass] = useState(false);
    const [error, setError] = useState(null);
-   const { loginAUser } = useContext(AuthContext);
+   const { loginAUser, googleLogin, githubLogin } = useContext(AuthContext);
+
+   /* navigate to a route */
+   const navigate = useNavigate();
 
    const handleSubmit = (event) => {
       setError(null);
@@ -24,9 +27,38 @@ const Login = () => {
             const user = result.user;
             console.log(user);
             form.reset();
+            navigate("/");
          })
          .catch((error) => {
             setError(error.code.slice(5));
+            toast.error(error.code.slice(5));
+         });
+   };
+
+   /* Google Login */
+   const handleGoogleLogin = () => {
+      googleLogin()
+         .then((result) => {
+            const user = result.user;
+            console.log(user);
+            toast.success("Successfully Logged In");
+            navigate("/");
+         })
+         .catch((error) => {
+            toast.error(error.code.slice(5));
+         });
+   };
+
+   /* Github Login */
+   const handleGithubLogin = () => {
+      githubLogin()
+         .then((result) => {
+            const user = result.user;
+            console.log(user);
+            toast.success("Successfully Logged In");
+            navigate("/");
+         })
+         .catch((error) => {
             toast.error(error.code.slice(5));
          });
    };
@@ -99,10 +131,16 @@ const Login = () => {
                      <h4>Login With</h4>
                   </div>
                   <div className="form-control mt-2 flex flex-row gap-3 w-full justify-evenly">
-                     <button className="btn btn-outline hover:btn-primary w-[45%] flex justify-center items-center gap-3">
+                     <button
+                        onClick={handleGoogleLogin}
+                        className="btn btn-outline hover:btn-primary w-[45%] flex justify-center items-center gap-3"
+                     >
                         <FaGoogle className="w-5 h-5" /> <span>Google</span>
                      </button>
-                     <button className="btn btn-outline hover:btn-primary w-[45%] flex justify-center items-center gap-3">
+                     <button
+                        onClick={handleGithubLogin}
+                        className="btn btn-outline hover:btn-primary w-[45%] flex justify-center items-center gap-3"
+                     >
                         <FaGithub className="w-5 h-5" /> <span>Github</span>
                      </button>
                   </div>

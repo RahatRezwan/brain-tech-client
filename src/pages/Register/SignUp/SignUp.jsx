@@ -9,7 +9,8 @@ const SignUp = () => {
    /* state for show and hide password */
    const [showPass, setShowPass] = useState(false);
    const [error, setError] = useState(null);
-   const { createAUser, updateUserProfile, logOutUser } = useContext(AuthContext);
+   const { createAUser, updateUserProfile, logOutUser, githubLogin, googleLogin } =
+      useContext(AuthContext);
 
    /* navigate to a route */
    const navigate = useNavigate();
@@ -44,7 +45,7 @@ const SignUp = () => {
             handleUpdateUser(fullName, photoURL);
             logOutUser();
             toast.success(
-               "Your Account Created Successfully! Now you can log in to your account!!"
+               "Your Account Created Successfully! Now you can log in to your account!!",
             );
             navigate("/login");
          })
@@ -60,6 +61,34 @@ const SignUp = () => {
       updateUserProfile(profile)
          .then(() => {})
          .catch((e) => console.log(e));
+   };
+
+   /* Google Login */
+   const handleGoogleLogin = () => {
+      googleLogin()
+         .then((result) => {
+            const user = result.user;
+            console.log(user);
+            toast.success("Successfully Logged In");
+            navigate("/");
+         })
+         .catch((error) => {
+            toast.error(error.code.slice(5));
+         });
+   };
+
+   /* Github Login */
+   const handleGithubLogin = () => {
+      githubLogin()
+         .then((result) => {
+            const user = result.user;
+            console.log(user);
+            toast.success("Successfully Logged In");
+            navigate("/");
+         })
+         .catch((error) => {
+            toast.error(error.code.slice(5));
+         });
    };
 
    return (
@@ -167,10 +196,16 @@ const SignUp = () => {
                      <h4>Sign Up With</h4>
                   </div>
                   <div className="form-control mt-2 flex flex-row gap-3 w-full justify-evenly">
-                     <button className="btn btn-outline hover:btn-primary w-[45%] flex justify-center items-center gap-3">
+                     <button
+                        onClick={handleGoogleLogin}
+                        className="btn btn-outline hover:btn-primary w-[45%] flex justify-center items-center gap-3"
+                     >
                         <FaGoogle className="w-5 h-5" /> <span>Google</span>
                      </button>
-                     <button className="btn btn-outline hover:btn-primary w-[45%] flex justify-center items-center gap-3">
+                     <button
+                        onClick={handleGithubLogin}
+                        className="btn btn-outline hover:btn-primary w-[45%] flex justify-center items-center gap-3"
+                     >
                         <FaGithub className="w-5 h-5" /> <span>Github</span>
                      </button>
                   </div>

@@ -2,8 +2,11 @@ import React from "react";
 import {
    createUserWithEmailAndPassword,
    getAuth,
+   GithubAuthProvider,
+   GoogleAuthProvider,
    onAuthStateChanged,
    signInWithEmailAndPassword,
+   signInWithPopup,
    signOut,
    updateProfile,
 } from "firebase/auth";
@@ -17,6 +20,12 @@ export const AuthContext = createContext();
 
 /* Crete auth */
 const auth = getAuth(app);
+
+/* Google Auth Provider */
+const googleProvider = new GoogleAuthProvider();
+
+/* Github Auth Provider */
+const githubProvider = new GithubAuthProvider();
 
 const AuthProvider = ({ children }) => {
    const [user, setUser] = useState(null);
@@ -44,6 +53,18 @@ const AuthProvider = ({ children }) => {
       return signOut(auth);
    };
 
+   /* Login Using Google */
+   const googleLogin = () => {
+      setLoading(true);
+      return signInWithPopup(auth, googleProvider);
+   };
+
+   /* Login using github */
+   const githubLogin = () => {
+      setLoading(true);
+      return signInWithPopup(auth, githubProvider);
+   };
+
    /* get currently logged in user */
    useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -54,7 +75,16 @@ const AuthProvider = ({ children }) => {
       return () => unsubscribe();
    }, []);
 
-   const authInfo = { user, loading, createAUser, updateUserProfile, loginAUser, logOutUser };
+   const authInfo = {
+      user,
+      loading,
+      createAUser,
+      updateUserProfile,
+      loginAUser,
+      googleLogin,
+      githubLogin,
+      logOutUser,
+   };
 
    return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
 };

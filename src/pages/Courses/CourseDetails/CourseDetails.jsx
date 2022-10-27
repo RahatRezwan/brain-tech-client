@@ -133,7 +133,7 @@ const CourseDetails = () => {
                            ${price}
                         </h1>
                         <button className="btn btn-primary flex gap-2 text-md font-bold">
-                           <FaFileDownload className="h-5" /> Download Description
+                           Buy Now
                         </button>
                      </div>
 

@@ -7,7 +7,7 @@ const Blog = () => {
    const { img, question, answer } = blog;
    const { dark } = useContext(ThemeContext);
    return (
-      <div className="w-[70%] mx-auto">
+      <div className="w-[95%] md:w-[90%] lg:w-[50%] mx-auto">
          <div
             className={`${
                dark ? "border-gray-700 bg-base-200" : "border-gray-100 bg-base-100"

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../layouts/Main/Main";
 import { Blog, Blogs, CourseDetails, Courses, FAQ, Home, Login, SignUp } from "../../pages";
+import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
    {
@@ -48,5 +49,6 @@ export const router = createBrowserRouter([
             loader: async ({ params }) => fetch(`http://localhost:5000/blog/${params.blogId}`),
          },
       ],
+      errorElement: <ErrorPage />,
    },
 ]);
