@@ -12,6 +12,7 @@ import {
    SignUp,
 } from "../../pages";
 import ErrorPage from "../../pages/ErrorPage/ErrorPage";
+import PrivateRoute from "../PrivateRoutes/PrivateRoutes";
 
 export const router = createBrowserRouter([
    {
@@ -41,7 +42,11 @@ export const router = createBrowserRouter([
          },
          {
             path: "/checkout/:id",
-            element: <Checkout />,
+            element: (
+               <PrivateRoute>
+                  <Checkout />
+               </PrivateRoute>
+            ),
             loader: async ({ params }) =>
                fetch(`https://brain-tech-server.vercel.app/course/${params.id}`),
          },
