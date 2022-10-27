@@ -1,6 +1,7 @@
 import React from "react";
 import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 import { ThemeContext } from "../../context/ThemeController/ThemeController";
 import SideBar from "../Shared/SideBar/SideBar";
@@ -27,14 +28,14 @@ const Checkout = () => {
                <p
                   className={`${dark ? "text-slate-400" : "text-slate-600"} text-lg font-bold mb-3`}
                >
-                  name :{"  "}
-                  <input type="text" disabled value={user?.displayName.toUpperCase()} />
+                  Full Name :{"   "}
+                  {user?.displayName.toUpperCase()}
                </p>
                <p
                   className={`${dark ? "text-slate-400" : "text-slate-600"} text-lg font-bold mb-3`}
                >
-                  Email:{"  "}
-                  <input type="text" disabled value={user?.email} />
+                  Email:{"   "}
+                  {user?.email}
                </p>
                <p
                   className={`${dark ? "text-slate-400" : "text-slate-600"} text-lg font-bold mb-3`}
@@ -57,6 +58,18 @@ const Checkout = () => {
                   placeholder="Your Address"
                   rows="4"
                ></textarea>
+               <button
+                  onClick={() => toast.success("Saved Successfully")}
+                  className="btn btn-outline btn-primary mt-3"
+               >
+                  Save
+               </button>
+               <button
+                  onClick={() => toast.success("Thanks For Purchase")}
+                  className="btn btn-success text-lg font-bold text-base-100 mt-20 w-full"
+               >
+                  Confirm Purchase
+               </button>
             </div>
 
             {/* side part */}

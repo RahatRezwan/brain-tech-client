@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
@@ -10,6 +10,8 @@ const Login = () => {
    const [error, setError] = useState(null);
    const { loginAUser, googleLogin, githubLogin } = useContext(AuthContext);
 
+   const location = useLocation();
+   const from = location.state?.from?.pathname || "/";
    /* navigate to a route */
    const navigate = useNavigate();
 
@@ -24,10 +26,9 @@ const Login = () => {
       /* User login */
       loginAUser(email, password)
          .then((result) => {
-            const user = result.user;
-            console.log(user);
             form.reset();
-            navigate("/");
+            toast.success("Successfully Logged In");
+            navigate(from, { replace: true });
          })
          .catch((error) => {
             setError(error.code.slice(5));
@@ -39,10 +40,8 @@ const Login = () => {
    const handleGoogleLogin = () => {
       googleLogin()
          .then((result) => {
-            const user = result.user;
-            console.log(user);
             toast.success("Successfully Logged In");
-            navigate("/");
+            navigate(from, { replace: true });
          })
          .catch((error) => {
             toast.error(error.code.slice(5));
@@ -53,10 +52,8 @@ const Login = () => {
    const handleGithubLogin = () => {
       githubLogin()
          .then((result) => {
-            const user = result.user;
-            console.log(user);
             toast.success("Successfully Logged In");
-            navigate("/");
+            navigate(from, { replace: true });
          })
          .catch((error) => {
             toast.error(error.code.slice(5));
