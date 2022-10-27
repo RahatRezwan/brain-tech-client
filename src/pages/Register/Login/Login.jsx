@@ -9,7 +9,8 @@ const Login = () => {
    /* state for show and hide password */
    const [showPass, setShowPass] = useState(false);
    const [error, setError] = useState(null);
-   const { loginAUser, googleLogin, githubLogin } = useContext(AuthContext);
+   const [email, setEmail] = useState("");
+   const { loginAUser, googleLogin, githubLogin, resetPassword } = useContext(AuthContext);
 
    const location = useLocation();
    const from = location.state?.from?.pathname || "/";
@@ -66,6 +67,22 @@ const Login = () => {
             toast.error(error.code.slice(5));
          });
    };
+
+   /* set email on blur */
+   const handleSetEmail = (event) => {
+      event.preventDefault();
+      const emailAddress = event.target.value;
+      setEmail(emailAddress);
+   };
+   /* password reset */
+   const handlePasswordReset = () => {
+      resetPassword(email)
+         .then(() => {
+            toast.success("Email Send for password reset");
+         })
+         .catch((error) => console.log(error));
+   };
+
    return (
       <div className="hero min-h-screen bg-base-200">
          <div className="hero-content flex-col w-11/12 md:w-3/5 lg:max-w-lg">
@@ -80,6 +97,7 @@ const Login = () => {
                         <span className="label-text">Email</span>
                      </label>
                      <input
+                        onBlur={handleSetEmail}
                         type="email"
                         name="email"
                         placeholder="email"
@@ -126,7 +144,10 @@ const Login = () => {
                         Register
                      </Link>
                   </p>
-                  <Link className="link link-hover text-center text-base text-error">
+                  <Link
+                     onClick={handlePasswordReset}
+                     className="link link-hover text-center text-base text-error"
+                  >
                      Forgot password?
                   </Link>
 
