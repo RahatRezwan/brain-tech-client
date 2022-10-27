@@ -30,18 +30,18 @@ const Header = () => {
 
    return (
       <div className="sticky top-0 w-[100%] z-20 bg-base-200 shadow-lg">
-         <div className="  mx-auto flex justify-between items-center container py-3 px-20">
+         <div className="  mx-auto flex justify-between items-center container py-3 px-4 lg:px-20">
             <div>
                <Link to="/">
                   <img
                      src={dark ? logoDark : logoLight}
                      alt="logo"
-                     className="w-[50px] md:w-[160px]"
+                     className="w-[100px] md:w-[160px]"
                   />
                </Link>
             </div>
             <div>
-               <ul className="flex justify-center items-center gap-10">
+               <ul className="hidden lg:flex justify-center items-center gap-10">
                   {menuItems.map((menu, index) => (
                      <NavLink
                         key={menu.name + index}
@@ -79,34 +79,36 @@ const Header = () => {
                      </svg>
                   </label>
                </div>
-               {user?.uid ? (
-                  <>
-                     <div
-                        className="avatar tooltip tooltip-bottom cursor-pointer"
-                        data-tip={user?.displayName ? user.displayName : "A user"}
-                     >
-                        <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                           <img src={user?.photoURL ? user.photoURL : userPic} alt="profile" />
+               <div className="hidden lg:block">
+                  {user?.uid ? (
+                     <div className="flex items-center gap-4">
+                        <div
+                           className="avatar tooltip tooltip-bottom cursor-pointer"
+                           data-tip={user?.displayName ? user.displayName : "A user"}
+                        >
+                           <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                              <img src={user?.photoURL ? user.photoURL : userPic} alt="profile" />
+                           </div>
                         </div>
-                     </div>
-                     <button
-                        onClick={handleLogOut}
-                        className="btn btn-outline btn-primary text-[13px] font-bold rounded-md"
-                     >
-                        Logout
-                     </button>
-                  </>
-               ) : (
-                  <>
-                     <Link to="/login">
-                        <button className="btn btn-outline btn-primary text-[13px] font-bold rounded-md">
-                           Login
+                        <button
+                           onClick={handleLogOut}
+                           className="btn btn-outline btn-primary text-[13px] font-bold rounded-md"
+                        >
+                           Logout
                         </button>
-                     </Link>
-                  </>
-               )}
+                     </div>
+                  ) : (
+                     <>
+                        <Link to="/login">
+                           <button className="btn btn-outline btn-primary text-[13px] font-bold rounded-md">
+                              Login
+                           </button>
+                        </Link>
+                     </>
+                  )}
+               </div>
                {/* menu responsive */}
-               <div onClick={() => setOpen(!open)} className="cursor-pointer">
+               <div onClick={() => setOpen(!open)} className="cursor-pointer block lg:hidden">
                   {open ? (
                      <HiX className="text=2xl w-6 h-6" />
                   ) : (
@@ -114,6 +116,53 @@ const Header = () => {
                   )}
                </div>
             </div>
+         </div>
+         {/* responsive menu items */}
+         <div className={`${open ? "block" : "hidden"} px-10 py-5 text-end sticky top-[10%]`}>
+            <ul className="flex flex-col lg:hidden justify-end w-full  gap-10">
+               {menuItems.map((menu, index) => (
+                  <NavLink
+                     key={menu.name + index}
+                     className={({ isActive }) =>
+                        isActive
+                           ? "text-primary font-semibold text-base"
+                           : " hover:text-primary font-semibold text-base"
+                     }
+                     to={menu.url}
+                     end
+                  >
+                     {menu.name}
+                  </NavLink>
+               ))}
+               <div className="block lg:hidden">
+                  {user?.uid ? (
+                     <div className="flex flex-col items-end justify-end gap-3">
+                        <div
+                           className="avatar tooltip tooltip-bottom cursor-pointer"
+                           data-tip={user?.displayName ? user.displayName : "A user"}
+                        >
+                           <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                              <img src={user?.photoURL ? user.photoURL : userPic} alt="profile" />
+                           </div>
+                        </div>
+                        <button
+                           onClick={handleLogOut}
+                           className="btn btn-outline btn-primary text-[13px] font-bold rounded-md"
+                        >
+                           Logout
+                        </button>
+                     </div>
+                  ) : (
+                     <>
+                        <Link to="/login">
+                           <button className="btn btn-outline btn-primary text-[13px] font-bold rounded-md">
+                              Login
+                           </button>
+                        </Link>
+                     </>
+                  )}
+               </div>
+            </ul>
          </div>
       </div>
    );
