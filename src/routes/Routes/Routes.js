@@ -37,7 +37,7 @@ export const router = createBrowserRouter([
          {
             path: "/faq",
             element: <FAQ />,
-            loader: async () => fetch("http://localhost:5000/faq"),
+            loader: async () => fetch("https://brain-tech-server.vercel.app/faq"),
          },
          {
             path: "/checkout",
@@ -46,22 +46,24 @@ export const router = createBrowserRouter([
          {
             path: "/courses",
             element: <Courses />,
-            loader: async () => fetch("http://localhost:5000/courses"),
+            loader: async () => fetch("https://brain-tech-server.vercel.app/courses"),
          },
          {
             path: "/course/:courseId",
             element: <CourseDetails />,
-            loader: async ({ params }) => fetch(`http://localhost:5000/course/${params.courseId}`),
+            loader: async ({ params }) =>
+               fetch(`https://brain-tech-server.vercel.app/${params.courseId}`),
          },
          {
             path: "/blogs",
             element: <Blogs />,
-            loader: async () => fetch("http://localhost:5000/blogs"),
+            loader: async () => fetch("https://brain-tech-server.vercel.app/blogs"),
          },
          {
             path: "/blog/:blogId",
             element: <Blog />,
-            loader: async ({ params }) => fetch(`http://localhost:5000/blog/${params.blogId}`),
+            loader: async ({ params }) =>
+               fetch(`https://brain-tech-server.vercel.app/${params.blogId}`),
          },
       ],
       errorElement: <ErrorPage />,

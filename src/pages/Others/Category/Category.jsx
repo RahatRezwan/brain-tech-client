@@ -10,7 +10,7 @@ const Category = ({ category, index }) => {
 
    const [courses, setCourses] = useState([]);
    useEffect(() => {
-      fetch(`http://localhost:5000/courses/${category_id}`)
+      fetch(`https://brain-tech-server.vercel.app/courses/${category_id}`)
          .then((res) => res.json())
          .then((data) => setCourses(data));
    }, [category_id]);
