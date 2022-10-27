@@ -9,7 +9,7 @@ const SignUp = () => {
    /* state for show and hide password */
    const [showPass, setShowPass] = useState(false);
    const [error, setError] = useState(null);
-   const { createAUser, updateUserProfile, logOutUser, githubLogin, googleLogin } =
+   const { createAUser, verifyUserEmail, updateUserProfile, logOutUser, githubLogin, googleLogin } =
       useContext(AuthContext);
 
    /* navigate to a route */
@@ -43,10 +43,9 @@ const SignUp = () => {
             console.log(user);
             form.reset();
             handleUpdateUser(fullName, photoURL);
+            handleEmailVerification();
             logOutUser();
-            toast.success(
-               "Your Account Created Successfully! Now you can log in to your account!!",
-            );
+            toast.success("Your Account Created Successfully! Email Verification send.");
             navigate("/login");
          })
          .catch((error) => {
@@ -61,6 +60,15 @@ const SignUp = () => {
       updateUserProfile(profile)
          .then(() => {})
          .catch((e) => console.log(e));
+   };
+
+   /* Email Verification */
+   const handleEmailVerification = () => {
+      verifyUserEmail()
+         .then(() => {
+            toast.success("Please Verify Your Email First");
+         })
+         .catch((error) => toast.error(error.code.slice(5)));
    };
 
    /* Google Login */
