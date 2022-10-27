@@ -52,7 +52,7 @@ export const router = createBrowserRouter([
             path: "/course/:courseId",
             element: <CourseDetails />,
             loader: async ({ params }) =>
-               fetch(`https://brain-tech-server.vercel.app/${params.courseId}`),
+               fetch(`https://brain-tech-server.vercel.app/course/${params.courseId}`),
          },
          {
             path: "/blogs",
@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
             path: "/blog/:blogId",
             element: <Blog />,
             loader: async ({ params }) =>
-               fetch(`https://brain-tech-server.vercel.app/${params.blogId}`),
+               fetch(`https://brain-tech-server.vercel.app/blog/${params.blogId}`),
          },
       ],
       errorElement: <ErrorPage />,
