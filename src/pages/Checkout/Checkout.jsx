@@ -73,7 +73,7 @@ const Checkout = () => {
             </div>
 
             {/* side part */}
-            <div className={`lg:col-span-5 relative rounded`}>
+            <div className={`lg:col-span-6 relative rounded`}>
                <div
                   className={`${
                      dark ? "border-gray-700 bg-base-200" : "border-gray-100 bg-base-100"
