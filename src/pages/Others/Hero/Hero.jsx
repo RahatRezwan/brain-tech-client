@@ -12,7 +12,7 @@ const Hero = () => {
    const { user } = useContext(AuthContext);
    return (
       <div>
-         <div className="hero min-h-screen min-w-[100%] bg-base-200">
+         <div className="hero min-h-screen min-w-[100%] bg-base-100">
             <div className="hero-content flex flex-col lg:flex-row justify-between items-center m-auto">
                <div className="w-[100%] lg:w-[50%]">
                   <h1 className="text-5xl font-bold mb-2">
