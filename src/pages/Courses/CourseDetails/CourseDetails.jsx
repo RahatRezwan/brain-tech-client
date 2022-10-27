@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { ThemeContext } from "../../../context/ThemeController/ThemeController";
 import SideBar from "../../Shared/SideBar/SideBar";
+import Pdf from "react-to-pdf";
 import {
    FaStar,
    FaStarHalf,
@@ -13,6 +14,7 @@ import {
    FaFileDownload,
 } from "react-icons/fa";
 
+const ref = React.createRef();
 const CourseDetails = () => {
    const { dark } = useContext(ThemeContext);
 
@@ -45,61 +47,69 @@ const CourseDetails = () => {
                   <h1 className={`text-primary text-3xl font-bold mb-3`}>{name}</h1>
 
                   {/* Download Button */}
-                  <button
-                     className="btn btn-primary btn-outline flex gap-2 text-sm font-bold rounded tooltip tooltip-primary tooltip-left"
-                     data-tip="download description"
+                  <Pdf targetRef={ref} filename="Course-details.pdf">
+                     {({ toPdf }) => (
+                        <button
+                           onClick={toPdf}
+                           className="btn btn-primary btn-outline flex gap-2 text-sm font-bold rounded tooltip tooltip-primary tooltip-left"
+                           data-tip="download description"
+                        >
+                           <FaFileDownload className="h-5" />
+                        </button>
+                     )}
+                  </Pdf>
+               </div>
+               <div ref={ref}>
+                  <div className="">
+                     <img src={img} alt="" className="rounded-lg mb-4" />
+                  </div>
+                  <h4
+                     className={`${
+                        dark ? "text-slate-400" : "text-slate-600"
+                     } text-lg font-bold mb-3`}
                   >
-                     <FaFileDownload className="h-5" />
-                  </button>
-               </div>
+                     {tagline}
+                  </h4>
 
-               <div className="">
-                  <img src={img} alt="" className="rounded-lg mb-4" />
-               </div>
-               <h4
-                  className={`${dark ? "text-slate-400" : "text-slate-600"} text-lg font-bold mb-3`}
-               >
-                  {tagline}
-               </h4>
-
-               {/* Author, Ragings, Enrollments */}
-               <div className="flex items-center justify-between w-[70%] mb-3">
-                  <div className="flex items-center gap-1">
-                     <FaUser />
-                     <p>{Author.name}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                     <div className="flex items-center">
-                        <FaStar className="text-warning" />
-                        <FaStar className="text-warning" />
-                        <FaStar className="text-warning" />
-                        <FaStar className="text-warning" />
-                        <FaStarHalf className="text-warning" />
-                        <p className="text-warning">{Rating.stars}</p>
+                  {/* Author, Ragings, Enrollments */}
+                  <div className="flex items-center justify-between w-[70%] mb-3">
+                     <div className="flex items-center gap-1">
+                        <FaUser />
+                        <p>{Author.name}</p>
                      </div>
-                     <p>({Rating.ratings})</p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                     <FaUsers /> <p>{Rating.students} students</p>
-                  </div>
-               </div>
-
-               {/* Basic Requirements */}
-               <div className="mb-4">
-                  <h4 className={`text-primary text-lg font-bold mb-3`}>What You Will Learn:</h4>
-                  <div className="grid grid-cols-2 gap-3">
-                     {what_you_learn.map((text) => (
+                     <div className="flex items-center gap-2">
                         <div className="flex items-center">
-                           <FaCheckCircle className="text-primary w-[12%]" />
-                           <p className="w-[88%] font-semibold text-sm">{text}</p>
+                           <FaStar className="text-warning" />
+                           <FaStar className="text-warning" />
+                           <FaStar className="text-warning" />
+                           <FaStar className="text-warning" />
+                           <FaStarHalf className="text-warning" />
+                           <p className="text-warning">{Rating.stars}</p>
                         </div>
-                     ))}
+                        <p>({Rating.ratings})</p>
+                     </div>
+                     <div className="flex items-center gap-1">
+                        <FaUsers /> <p>{Rating.students} students</p>
+                     </div>
                   </div>
-               </div>
 
-               {/* description */}
-               <h4 className={`text-primary text-lg font-bold mb-1`}>Description</h4>
-               <p className="text-justify text-base">{description}</p>
+                  {/* Basic Requirements */}
+                  <div className="mb-4">
+                     <h4 className={`text-primary text-lg font-bold mb-3`}>What You Will Learn:</h4>
+                     <div className="grid grid-cols-2 gap-3">
+                        {what_you_learn.map((text) => (
+                           <div className="flex items-center">
+                              <FaCheckCircle className="text-primary w-[12%]" />
+                              <p className="w-[88%] font-semibold text-sm">{text}</p>
+                           </div>
+                        ))}
+                     </div>
+                  </div>
+
+                  {/* description */}
+                  <h4 className={`text-primary text-lg font-bold mb-1`}>Description</h4>
+                  <p className="text-justify text-base">{description}</p>
+               </div>
             </div>
 
             {/* Side Bar part */}

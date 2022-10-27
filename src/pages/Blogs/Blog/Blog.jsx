@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { ThemeContext } from "../../../context/ThemeController/ThemeController";
 
 const Blog = () => {
    const blog = useLoaderData();
-   console.log(blog);
+   const { img, question, answer } = blog;
+   const { dark } = useContext(ThemeContext);
    return (
-      <div>
-         <h1>Blog</h1>
+      <div className="w-[70%] mx-auto">
+         <div
+            className={`${
+               dark ? "border-gray-700 bg-base-200" : "border-gray-100 bg-base-100"
+            } lg:col-span-7 mt-10 border shadow-md rounded-lg p-5`}
+         >
+            <div className="">
+               <img src={img} alt="" className="rounded-lg mb-4" />
+            </div>
+            {/* Question */}
+            <div className="flex justify-between items-center gap-5">
+               <h1 className={`text-primary text-3xl font-bold mb-3`}>{question}</h1>
+            </div>
+            {/* Answer */}
+            <p className="text-justify text-base">{answer}</p>
+         </div>
       </div>
    );
 };
