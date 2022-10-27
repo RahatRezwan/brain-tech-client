@@ -10,6 +10,7 @@ import SignUp from "./Register/SignUp/SignUp";
 import Footer from "./Shared/Footer/Footer";
 import Header from "./Shared/Header/Header";
 import SideBar from "./Shared/SideBar/SideBar";
+import Checkout from "./Checkout/Checkout";
 
 export {
    Blog,
@@ -24,4 +25,5 @@ export {
    SignUp,
    Footer,
    SideBar,
+   Checkout,
 };

@@ -5,10 +5,21 @@ import logoDark from "../../../logo-dark.svg";
 import { ThemeContext } from "../../../context/ThemeController/ThemeController";
 import { AuthContext } from "../../../context/AuthProvider/AuthProvider";
 import userPic from "../../../assets/userPic.png";
+import { HiMenuAlt3, HiX } from "react-icons/hi";
+import { useState } from "react";
+
+/* Nav Menu */
+const menuItems = [
+   { name: "Home", url: "/" },
+   { name: "Courses", url: "/courses" },
+   { name: "Blogs", url: "/blogs" },
+   { name: "FAQ", url: "/faq" },
+];
 
 const Header = () => {
    const { dark, setDarkTheme } = useContext(ThemeContext);
    const { user, logOutUser } = useContext(AuthContext);
+   const [open, setOpen] = useState(false);
 
    /* handle Logout */
    const handleLogOut = () => {
@@ -22,35 +33,29 @@ const Header = () => {
          <div className="  mx-auto flex justify-between items-center container py-3 px-20">
             <div>
                <Link to="/">
-                  <img src={dark ? logoDark : logoLight} alt="logo" className="w-[160px]" />
+                  <img
+                     src={dark ? logoDark : logoLight}
+                     alt="logo"
+                     className="w-[50px] md:w-[160px]"
+                  />
                </Link>
             </div>
             <div>
                <ul className="flex justify-center items-center gap-10">
-                  <NavLink
-                     className="hover:text-primary hover:border-b-2 hover:border-b-primary font-semibold text-base"
-                     to="/"
-                  >
-                     Home
-                  </NavLink>
-                  <NavLink
-                     className="hover:text-primary hover:border-b-2 hover:border-b-primary font-semibold text-base"
-                     to="/courses"
-                  >
-                     Courses
-                  </NavLink>
-                  <NavLink
-                     className="hover:text-primary hover:border-b-2 hover:border-b-primary font-semibold text-base"
-                     to="/blogs"
-                  >
-                     Blogs
-                  </NavLink>
-                  <NavLink
-                     className="hover:text-primary hover:border-b-2 hover:border-b-primary font-semibold text-base"
-                     to="/faq"
-                  >
-                     FAQ
-                  </NavLink>
+                  {menuItems.map((menu, index) => (
+                     <NavLink
+                        key={menu.name + index}
+                        className={({ isActive }) =>
+                           isActive
+                              ? "text-primary border-b-2 border-b-primary font-semibold text-base"
+                              : " hover:text-primary hover:border-b-2 hover:border-b-primary font-semibold text-base"
+                        }
+                        to={menu.url}
+                        end
+                     >
+                        {menu.name}
+                     </NavLink>
+                  ))}
                </ul>
             </div>
             <div className="flex gap-4 items-center">
@@ -98,13 +103,16 @@ const Header = () => {
                            Login
                         </button>
                      </Link>
-                     <Link to="/signup">
-                        <button className="btn btn-primary hover:btn-outline text-[13px] font-bold rounded-md">
-                           Register
-                        </button>
-                     </Link>
                   </>
                )}
+               {/* menu responsive */}
+               <div onClick={() => setOpen(!open)} className="cursor-pointer">
+                  {open ? (
+                     <HiX className="text=2xl w-6 h-6" />
+                  ) : (
+                     <HiMenuAlt3 className="text-2xl w-6 h-6" />
+                  )}
+               </div>
             </div>
          </div>
       </div>

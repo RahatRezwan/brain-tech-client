@@ -1,6 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../../layouts/Main/Main";
-import { Blog, Blogs, CourseDetails, Courses, FAQ, Home, Login, SignUp } from "../../pages";
+import {
+   Blog,
+   Blogs,
+   Checkout,
+   CourseDetails,
+   Courses,
+   FAQ,
+   Home,
+   Login,
+   SignUp,
+} from "../../pages";
 import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
@@ -27,6 +37,11 @@ export const router = createBrowserRouter([
          {
             path: "/faq",
             element: <FAQ />,
+            loader: async () => fetch("http://localhost:5000/faq"),
+         },
+         {
+            path: "/checkout",
+            element: <Checkout />,
          },
          {
             path: "/courses",
