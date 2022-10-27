@@ -11,7 +11,7 @@ const Blog = () => {
          <div
             className={`${
                dark ? "border-gray-700 bg-base-200" : "border-gray-100 bg-base-100"
-            } lg:col-span-7 mt-10 border shadow-md rounded-lg p-5`}
+            } lg:col-span-7 my-10 border shadow-md rounded-lg p-5`}
          >
             <div className="">
                <img src={img} alt="" className="rounded-lg mb-4" />

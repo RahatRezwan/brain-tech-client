@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { ThemeContext } from "../../../context/ThemeController/ThemeController";
 import SideBar from "../../Shared/SideBar/SideBar";
 import Pdf from "react-to-pdf";
@@ -21,6 +21,7 @@ const CourseDetails = () => {
    /* load course data and destructure it */
    const course = useLoaderData();
    const {
+      id,
       name,
       video,
       img,
@@ -40,7 +41,7 @@ const CourseDetails = () => {
             <div
                className={`${
                   dark ? "border-gray-700 bg-base-200" : "border-gray-100 bg-base-100"
-               } lg:col-span-7 mt-10 border shadow-md rounded-lg p-5`}
+               } lg:col-span-7 my-10 border shadow-md rounded-lg p-5`}
             >
                {/* Heading Part */}
                <div className="flex justify-between items-center gap-5">
@@ -117,7 +118,7 @@ const CourseDetails = () => {
                <div
                   className={`${
                      dark ? "border-gray-700 bg-base-200" : "border-gray-100 bg-base-100"
-                  } border shadow-md rounded mt-10 p-5 lg:sticky top-[15%]`}
+                  } border shadow-md rounded my-10 p-5 lg:sticky top-[15%]`}
                >
                   <SideBar>
                      <video controls width="100%">
@@ -132,9 +133,11 @@ const CourseDetails = () => {
                         >
                            ${price}
                         </h1>
-                        <button className="btn btn-primary flex gap-2 text-md font-bold">
-                           Buy Now
-                        </button>
+                        <Link to={`/checkout/${id}`}>
+                           <button className="btn btn-primary flex gap-2 text-md font-bold">
+                              Buy Now
+                           </button>
+                        </Link>
                      </div>
 
                      <div>
@@ -152,9 +155,11 @@ const CourseDetails = () => {
                      </div>
 
                      <div className="w-[100%]">
-                        <button className="btn btn-outline btn-warning flex gap-2 text-md font-bold w-full mt-4">
-                           <FaCrown className="h-5" /> Get Premium Access
-                        </button>
+                        <Link to={`/checkout/${id}`}>
+                           <button className="btn btn-outline btn-warning flex gap-2 text-md font-bold w-full mt-4">
+                              <FaCrown className="h-5" /> Get Premium Access
+                           </button>
+                        </Link>
                      </div>
                   </SideBar>
                </div>

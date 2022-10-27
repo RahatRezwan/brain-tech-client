@@ -40,8 +40,10 @@ export const router = createBrowserRouter([
             loader: async () => fetch("https://brain-tech-server.vercel.app/faq"),
          },
          {
-            path: "/checkout",
+            path: "/checkout/:id",
             element: <Checkout />,
+            loader: async ({ params }) =>
+               fetch(`https://brain-tech-server.vercel.app/course/${params.id}`),
          },
          {
             path: "/courses",
