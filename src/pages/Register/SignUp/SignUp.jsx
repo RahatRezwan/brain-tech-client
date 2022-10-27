@@ -45,7 +45,7 @@ const SignUp = () => {
             handleUpdateUser(fullName, photoURL);
             handleEmailVerification();
             logOutUser();
-            toast.success("Your Account Created Successfully! Email Verification send.");
+            toast.success("Your Account Created Successfully! You can log in.");
             navigate("/login");
          })
          .catch((error) => {
@@ -66,7 +66,7 @@ const SignUp = () => {
    const handleEmailVerification = () => {
       verifyUserEmail()
          .then(() => {
-            toast.success("Please Verify Your Email First");
+            toast.success("Email Verification send.");
          })
          .catch((error) => toast.error(error.code.slice(5)));
    };

@@ -9,7 +9,7 @@ const Login = () => {
    /* state for show and hide password */
    const [showPass, setShowPass] = useState(false);
    const [error, setError] = useState(null);
-   const { loginAUser, googleLogin, githubLogin, logOutUser } = useContext(AuthContext);
+   const { loginAUser, googleLogin, githubLogin } = useContext(AuthContext);
 
    const location = useLocation();
    const from = location.state?.from?.pathname || "/";
@@ -33,21 +33,14 @@ const Login = () => {
                toast.success("Successfully Logged In");
                navigate(from, { replace: true });
             } else {
-               handleLogOut();
                toast.error("Your Email is not verified. Please verify your email first.");
+               navigate(from, { replace: true });
             }
          })
          .catch((error) => {
             setError(error.code.slice(5));
             toast.error(error.code.slice(5));
          });
-   };
-
-   /* handle log out if email in unverified */
-   const handleLogOut = () => {
-      logOutUser()
-         .then(() => {})
-         .catch((e) => toast.error(e.code));
    };
 
    /* Google Login */
